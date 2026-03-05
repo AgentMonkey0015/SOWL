@@ -3,9 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wildlife Endangerment — Before They're Gone</title>
+<title>SOWL — Save Our Wildlife</title>
+
+<!-- Favicon: paw SVG -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cellipse cx='32' cy='46' rx='13' ry='10' fill='%23A47963'/%3E%3Cellipse cx='13' cy='31' rx='6' ry='8' fill='%23A47963'/%3E%3Cellipse cx='51' cy='31' rx='6' ry='8' fill='%23A47963'/%3E%3Cellipse cx='22' cy='18' rx='5.5' ry='7' fill='%23A47963'/%3E%3Cellipse cx='42' cy='18' rx='5.5' ry='7' fill='%23A47963'/%3E%3C/svg%3E">
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Didact+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
 
 <style>
   :root {
@@ -19,21 +23,25 @@
   }
 
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
 
-  /* ── PAWPRINT CURSOR ── */
+  html, body {
+    overscroll-behavior: none;
+    scroll-behavior: smooth;
+  }
+
+  /* ── PAW CURSOR (fixed: 4 proper toe pads + large main pad) ── */
   body {
     background: var(--primary);
     color: var(--off-white);
     font-family: 'Didact Gothic', sans-serif;
     overflow-x: hidden;
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cellipse cx='18' cy='27' rx='7' ry='5.5' fill='%23A47963'/%3E%3Cellipse cx='8' cy='19' rx='3.5' ry='4.5' fill='%23A47963'/%3E%3Cellipse cx='28' cy='19' rx='3.5' ry='4.5' fill='%23A47963'/%3E%3Cellipse cx='12' cy='12' rx='3' ry='4' fill='%23A47963'/%3E%3Cellipse cx='24' cy='12' rx='3' ry='4' fill='%23A47963'/%3E%3C/svg%3E") 18 18, auto;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cellipse cx='20' cy='30' rx='8' ry='6' fill='%23A47963'/%3E%3Cellipse cx='8' cy='22' rx='4' ry='5' fill='%23A47963'/%3E%3Cellipse cx='32' cy='22' rx='4' ry='5' fill='%23A47963'/%3E%3Cellipse cx='14' cy='12' rx='3.5' ry='4.5' fill='%23A47963'/%3E%3Cellipse cx='26' cy='12' rx='3.5' ry='4.5' fill='%23A47963'/%3E%3C/svg%3E") 20 20, auto;
   }
   a, button {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cellipse cx='18' cy='27' rx='7' ry='5.5' fill='%23A33B20'/%3E%3Cellipse cx='8' cy='19' rx='3.5' ry='4.5' fill='%23A33B20'/%3E%3Cellipse cx='28' cy='19' rx='3.5' ry='4.5' fill='%23A33B20'/%3E%3Cellipse cx='12' cy='12' rx='3' ry='4' fill='%23A33B20'/%3E%3Cellipse cx='24' cy='12' rx='3' ry='4' fill='%23A33B20'/%3E%3C/svg%3E") 18 18, pointer;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cellipse cx='20' cy='30' rx='8' ry='6' fill='%23A33B20'/%3E%3Cellipse cx='8' cy='22' rx='4' ry='5' fill='%23A33B20'/%3E%3Cellipse cx='32' cy='22' rx='4' ry='5' fill='%23A33B20'/%3E%3Cellipse cx='14' cy='12' rx='3.5' ry='4.5' fill='%23A33B20'/%3E%3Cellipse cx='26' cy='12' rx='3.5' ry='4.5' fill='%23A33B20'/%3E%3C/svg%3E") 20 20, pointer;
   }
 
-  /* ── NOISE OVERLAY ── */
+  /* ── NOISE ── */
   body::before {
     content: '';
     position: fixed; inset: 0;
@@ -53,18 +61,19 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     padding: 1.4rem 4rem;
     display: flex; justify-content: space-between; align-items: center;
-    background: linear-gradient(to bottom, rgba(39,33,60,0.97) 0%, transparent 100%);
+    background: linear-gradient(to bottom, rgba(39,33,60,0.97), transparent);
     backdrop-filter: blur(2px);
   }
   .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.15rem; font-weight: 700;
-    letter-spacing: 0.12em; color: var(--accent2);
+    font-family: 'Didact Gothic', sans-serif;
+    font-size: 1.2rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--accent2);
+    font-weight: 400;
   }
+  .nav-logo span { color: var(--tertiary); }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
   .nav-links a {
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 0.75rem; letter-spacing: 0.14em;
+    font-size: 0.73rem; letter-spacing: 0.16em;
     text-transform: uppercase; color: var(--text-muted);
     text-decoration: none; transition: color 0.3s;
   }
@@ -75,14 +84,12 @@
     position: relative; height: 100vh; overflow: hidden;
     display: grid; grid-template-columns: 55% 45%;
   }
-
   .hero-image-side { position: relative; overflow: hidden; }
   .hero-image-side img {
     width: 100%; height: 100%;
     object-fit: cover; object-position: center 30%;
     filter: brightness(0.52) saturate(0.8);
     transform: scale(1.08);
-    transition: transform 10s ease;
   }
   .hero-image-side::after {
     content: '';
@@ -90,7 +97,6 @@
     background: linear-gradient(to right, transparent 50%, var(--primary) 100%),
                 linear-gradient(to bottom, rgba(39,33,60,0.45) 0%, transparent 30%);
   }
-
   .hero-content-side {
     position: relative; z-index: 2;
     display: flex; flex-direction: column;
@@ -102,28 +108,26 @@
     position: absolute; left: 0; top: 15%; bottom: 15%; width: 1px;
     background: linear-gradient(to bottom, transparent, var(--accent1), transparent);
   }
-
   .hero-eyebrow {
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 0.72rem; letter-spacing: 0.3em;
+    font-size: 0.7rem; letter-spacing: 0.32em;
     text-transform: uppercase; color: var(--tertiary);
     margin-bottom: 1.5rem; opacity: 0;
   }
   .hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.8rem, 4.5vw, 5.2rem);
-    font-weight: 900; line-height: 1.0; color: var(--off-white);
+    font-size: clamp(2.6rem, 4.5vw, 5rem);
+    font-weight: 400; line-height: 1.05; color: var(--off-white);
+    letter-spacing: 0.02em;
   }
   .hero-title em {
-    font-style: italic; color: var(--accent1); display: block;
+    font-style: normal; color: var(--accent1); display: block;
+    letter-spacing: 0.04em;
   }
   .title-line { display: block; opacity: 0; }
-
   .hero-subtitle {
     margin-top: 1.8rem;
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 0.92rem; line-height: 1.9;
+    font-size: 0.9rem; line-height: 1.9;
     color: var(--text-muted); max-width: 400px; opacity: 0;
+    letter-spacing: 0.02em;
   }
   .hero-cta {
     margin-top: 2.5rem; display: flex; gap: 1rem; align-items: center;
@@ -136,13 +140,11 @@
     opacity: 0;
   }
   .hero-stat strong {
-    display: block;
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem; font-weight: 700; color: var(--accent1); line-height: 1;
+    display: block; font-size: 2rem;
+    color: var(--accent1); line-height: 1; letter-spacing: 0.02em;
   }
   .hero-stat small {
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 0.67rem; letter-spacing: 0.1em;
+    font-size: 0.66rem; letter-spacing: 0.12em;
     text-transform: uppercase; color: var(--text-muted);
   }
 
@@ -151,16 +153,13 @@
     padding: 0.85rem 2rem;
     background: var(--tertiary); color: var(--off-white);
     border: none;
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+    font-size: 0.76rem; letter-spacing: 0.17em; text-transform: uppercase;
     clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
     transition: background 0.3s, transform 0.3s;
   }
   .btn-primary:hover { background: #8a3018; transform: translateY(-2px); }
-
   .btn-ghost {
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+    font-size: 0.73rem; letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--accent2); background: none;
     border: 1px solid rgba(166,165,122,0.35);
     padding: 0.85rem 1.8rem;
@@ -169,24 +168,23 @@
   }
   .btn-ghost:hover { border-color: var(--accent2); gap: 1rem; }
 
-  /* ── SECTION LABELS ── */
+  /* ── SHARED ── */
   .section-label {
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 0.7rem; letter-spacing: 0.3em;
-    text-transform: uppercase; color: var(--tertiary);
-    margin-bottom: 0.6rem;
+    font-size: 0.68rem; letter-spacing: 0.32em;
+    text-transform: uppercase; color: var(--tertiary); margin-bottom: 0.6rem;
   }
   .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 3.5vw, 3.2rem);
-    font-weight: 700; line-height: 1.1; color: var(--off-white);
+    font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+    font-weight: 400; line-height: 1.15; color: var(--off-white);
+    letter-spacing: 0.04em; text-transform: uppercase;
   }
-  .section-title em { font-style: italic; color: var(--accent1); }
-
+  .section-title em { font-style: normal; color: var(--accent1); }
   .divider {
     width: 100%; height: 1px;
     background: linear-gradient(to right, transparent, rgba(164,121,99,0.3), transparent);
   }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 
   /* ── THREATS ── */
   .threats {
@@ -198,11 +196,9 @@
     align-items: flex-end; margin-bottom: 4rem; gap: 2rem; flex-wrap: wrap;
   }
   .threats-header p {
-    max-width: 380px;
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 0.92rem; color: var(--text-muted); line-height: 1.85;
+    max-width: 380px; font-size: 0.9rem;
+    color: var(--text-muted); line-height: 1.85; letter-spacing: 0.01em;
   }
-
   .threat-grid {
     display: grid; grid-template-columns: repeat(3,1fr);
     gap: 1.5px; background: rgba(164,121,99,0.12);
@@ -212,35 +208,27 @@
     position: relative; overflow: hidden; transition: background 0.4s;
   }
   .threat-card::before {
-    content: '';
-    position: absolute; bottom: 0; left: 0;
-    height: 2px; width: 0; background: var(--tertiary);
-    transition: width 0.5s ease;
+    content: ''; position: absolute; bottom: 0; left: 0;
+    height: 2px; width: 0; background: var(--tertiary); transition: width 0.5s ease;
   }
   .threat-card:hover { background: rgba(90,53,42,0.3); }
   .threat-card:hover::before { width: 100%; }
   .threat-number {
-    font-family: 'Playfair Display', serif;
-    font-size: 4.5rem; font-weight: 900;
+    font-size: 4rem; font-weight: 400; letter-spacing: 0.05em;
     color: rgba(164,121,99,0.1); line-height: 1;
     margin-bottom: 1rem; transition: color 0.4s;
   }
   .threat-card:hover .threat-number { color: rgba(163,59,32,0.22); }
-  .threat-icon { width: 40px; height: 40px; margin-bottom: 1.1rem; color: var(--accent1); }
+  .threat-icon { width: 38px; height: 38px; margin-bottom: 1.1rem; color: var(--accent1); }
   .threat-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.22rem; font-weight: 600;
-    margin-bottom: 0.7rem; color: var(--off-white);
+    font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 0.7rem; color: var(--off-white); font-weight: 400;
   }
-  .threat-card p {
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 0.88rem; line-height: 1.8; color: var(--text-muted);
-  }
+  .threat-card p { font-size: 0.87rem; line-height: 1.8; color: var(--text-muted); }
 
   /* ── SPECIES ── */
   .species-section { padding: 7rem 4rem; }
   .species-header { margin-bottom: 3.5rem; }
-
   .species-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -249,22 +237,16 @@
   }
   .species-card {
     position: relative; overflow: hidden;
-    border: 1px solid rgba(164,121,99,0.1);
-    transition: border-color 0.4s;
+    border: 1px solid rgba(164,121,99,0.1); transition: border-color 0.4s;
   }
   .species-card:hover { border-color: rgba(163,59,32,0.45); }
-
   .species-card img {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
+    position: absolute; inset: 0; width: 100%; height: 100%;
     object-fit: cover; object-position: center;
     filter: brightness(0.42) saturate(0.72);
     transition: filter 0.55s ease, transform 0.7s ease;
   }
-  .species-card:hover img {
-    filter: brightness(0.32) saturate(0.95);
-    transform: scale(1.07);
-  }
+  .species-card:hover img { filter: brightness(0.32) saturate(0.95); transform: scale(1.07); }
   .species-card-content {
     position: absolute; inset: 0; z-index: 2;
     display: flex; flex-direction: column; justify-content: flex-end;
@@ -273,7 +255,6 @@
   }
   .species-tag {
     display: inline-block;
-    font-family: 'Didact Gothic', sans-serif;
     font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
     padding: 0.22rem 0.65rem;
     background: rgba(163,59,32,0.28);
@@ -281,25 +262,15 @@
     margin-bottom: 0.6rem; width: fit-content;
   }
   .species-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.35rem; font-weight: 700;
-    color: var(--off-white); margin-bottom: 0.4rem; line-height: 1.2;
+    font-size: 1.1rem; letter-spacing: 0.08em; text-transform: uppercase;
+    font-weight: 400; color: var(--off-white); margin-bottom: 0.4rem; line-height: 1.25;
   }
-  .species-card p {
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 0.82rem; line-height: 1.7; color: rgba(240,235,227,0.62);
-  }
+  .species-card p { font-size: 0.82rem; line-height: 1.7; color: rgba(240,235,227,0.62); }
   .species-remaining {
-    margin-top: 0.75rem;
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 0.74rem; color: var(--accent1);
-    display: flex; align-items: center; gap: 0.5rem;
+    margin-top: 0.75rem; font-size: 0.73rem; color: var(--accent1);
+    display: flex; align-items: center; gap: 0.5rem; letter-spacing: 0.06em;
   }
-  .species-remaining::before {
-    content: ''; display: block;
-    width: 18px; height: 1px; background: var(--accent1);
-  }
-  /* Grid placement */
+  .species-remaining::before { content: ''; display: block; width: 18px; height: 1px; background: var(--accent1); }
   .sp1 { grid-column: 1 / 6; grid-row: 1; }
   .sp2 { grid-column: 6 / 9; grid-row: 1; }
   .sp3 { grid-column: 9 / 13; grid-row: 1; }
@@ -309,8 +280,7 @@
 
   /* ── IMPACT ── */
   .impact {
-    padding: 5rem 4rem;
-    background: var(--secondary);
+    padding: 5rem 4rem; background: var(--secondary);
     display: grid; grid-template-columns: repeat(4,1fr);
   }
   .impact-stat {
@@ -319,65 +289,203 @@
   }
   .impact-stat:last-child { border-right: none; }
   .impact-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.5rem; font-weight: 900;
-    color: var(--off-white); line-height: 1; margin-bottom: 0.5rem;
+    font-size: 3.5rem; font-weight: 400;
+    color: var(--off-white); line-height: 1; margin-bottom: 0.5rem; letter-spacing: 0.02em;
   }
   .impact-num span { color: var(--tertiary); }
   .impact-label {
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 0.72rem; letter-spacing: 0.13em;
+    font-size: 0.7rem; letter-spacing: 0.14em;
     text-transform: uppercase; color: rgba(240,235,227,0.45);
   }
 
   /* ── QUOTE ── */
   .quote-section {
-    padding: 7rem 4rem; text-align: center;
-    position: relative; overflow: hidden;
+    padding: 7rem 4rem; text-align: center; position: relative; overflow: hidden;
   }
   .quote-section::before {
     content: '"';
-    position: absolute; top: -3rem; left: 50%; transform: translateX(-50%);
-    font-family: 'Playfair Display', serif;
-    font-size: 22rem; font-weight: 900;
-    color: rgba(164,121,99,0.045); line-height: 1; pointer-events: none;
+    position: absolute; top: -4rem; left: 50%; transform: translateX(-50%);
+    font-size: 22rem; color: rgba(164,121,99,0.045); line-height: 1; pointer-events: none;
   }
   blockquote {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.4rem,3vw,2.4rem);
-    font-style: italic; font-weight: 400;
-    color: var(--off-white); line-height: 1.55;
-    max-width: 820px; margin: 0 auto 1.5rem;
+    font-size: clamp(1.1rem, 2.5vw, 1.9rem);
+    font-style: italic; font-weight: 400; letter-spacing: 0.03em;
+    color: var(--off-white); line-height: 1.65;
+    max-width: 800px; margin: 0 auto 1.5rem;
     position: relative; z-index: 1;
   }
   cite {
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 0.75rem; letter-spacing: 0.2em;
+    font-size: 0.73rem; letter-spacing: 0.22em;
     text-transform: uppercase; color: var(--accent2); font-style: normal;
   }
 
   /* ── PHOTO STRIP ── */
-  .photo-strip {
-    display: flex; height: 220px; overflow: hidden;
-  }
-  .photo-strip-item {
-    flex: 1; position: relative; overflow: hidden;
-    transition: flex 0.5s ease;
-  }
+  .photo-strip { display: flex; height: 220px; overflow: hidden; }
+  .photo-strip-item { flex: 1; position: relative; overflow: hidden; transition: flex 0.5s ease; }
   .photo-strip-item:hover { flex: 2.8; }
   .photo-strip-item img {
     width: 100%; height: 100%; object-fit: cover;
-    filter: brightness(0.45) saturate(0.65);
-    transition: filter 0.5s ease;
+    filter: brightness(0.45) saturate(0.65); transition: filter 0.5s ease;
   }
   .photo-strip-item:hover img { filter: brightness(0.6) saturate(1); }
   .photo-strip-label {
     position: absolute; bottom: 1rem; left: 1.2rem;
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem; font-style: italic;
+    font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--off-white); opacity: 0; transition: opacity 0.4s;
   }
   .photo-strip-item:hover .photo-strip-label { opacity: 1; }
+
+  /* ── WHAT YOU CAN DO ── */
+  .action-section {
+    padding: 7rem 4rem;
+    background: linear-gradient(180deg, var(--primary) 0%, #1e1830 100%);
+  }
+  .action-header { margin-bottom: 4rem; }
+  .action-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5px;
+    background: rgba(164,121,99,0.12);
+  }
+  .action-card {
+    background: var(--primary); padding: 2.5rem 1.8rem;
+    position: relative; overflow: hidden;
+    transition: background 0.4s;
+    display: flex; flex-direction: column; align-items: flex-start;
+  }
+  .action-card::after {
+    content: ''; position: absolute; top: 0; left: 0;
+    height: 3px; width: 0; background: var(--accent2);
+    transition: width 0.5s ease;
+  }
+  .action-card:hover { background: rgba(90,53,42,0.2); }
+  .action-card:hover::after { width: 100%; }
+  .action-icon {
+    width: 48px; height: 48px; margin-bottom: 1.5rem;
+    border-radius: 50%;
+    background: rgba(164,121,99,0.12);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent1); flex-shrink: 0;
+    transition: background 0.4s;
+  }
+  .action-card:hover .action-icon { background: rgba(163,59,32,0.2); }
+  .action-icon svg { width: 22px; height: 22px; }
+  .action-card h3 {
+    font-size: 0.88rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--off-white); margin-bottom: 0.75rem; font-weight: 400;
+  }
+  .action-card p { font-size: 0.85rem; line-height: 1.8; color: var(--text-muted); }
+
+  /* ── SUCCESS STORIES ── */
+  .success-section {
+    padding: 7rem 4rem;
+    background: var(--primary);
+  }
+  .success-header { margin-bottom: 4rem; }
+  .success-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .success-card {
+    position: relative; height: 320px; overflow: hidden;
+    border: 1px solid rgba(164,121,99,0.1);
+    transition: border-color 0.4s;
+  }
+  .success-card:hover { border-color: rgba(166,165,122,0.4); }
+  .success-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(0.38) saturate(0.6);
+    transition: filter 0.5s, transform 0.6s;
+  }
+  .success-card:hover img { filter: brightness(0.28) saturate(0.85); transform: scale(1.05); }
+  .success-card-content {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 2rem;
+    background: linear-gradient(to top, rgba(39,33,60,0.97) 0%, transparent 60%);
+  }
+  .success-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 0.22rem 0.65rem; margin-bottom: 0.7rem;
+    background: rgba(166,165,122,0.18); color: var(--accent2);
+    border: 1px solid rgba(166,165,122,0.3); width: fit-content;
+  }
+  .success-badge::before {
+    content: ''; display: block;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--accent2);
+  }
+  .success-card h3 {
+    font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 400; color: var(--off-white); margin-bottom: 0.5rem;
+  }
+  .success-card p { font-size: 0.82rem; line-height: 1.7; color: rgba(240,235,227,0.6); }
+  .success-stat {
+    margin-top: 1rem; font-size: 1.4rem;
+    color: var(--accent2); letter-spacing: 0.04em;
+  }
+
+  /* ── BY THE NUMBERS TIMELINE ── */
+  .timeline-section {
+    padding: 7rem 4rem;
+    background: linear-gradient(160deg, #1e1830 0%, var(--primary) 50%);
+  }
+  .timeline-header { margin-bottom: 4rem; }
+  .timeline {
+    position: relative; max-width: 900px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0; width: 1px;
+    background: linear-gradient(to bottom, var(--tertiary), var(--accent1), transparent);
+  }
+  .timeline-item {
+    display: grid; grid-template-columns: 120px 1fr;
+    gap: 2rem; padding: 0 0 3.5rem 2rem; position: relative;
+  }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -4px; top: 8px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--accent1); border: 2px solid var(--primary);
+  }
+  .timeline-year {
+    font-size: 1.5rem; color: var(--tertiary); letter-spacing: 0.04em; padding-top: 2px;
+  }
+  .timeline-content h4 {
+    font-size: 0.9rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--off-white); margin-bottom: 0.5rem; font-weight: 400;
+  }
+  .timeline-content p { font-size: 0.87rem; line-height: 1.8; color: var(--text-muted); }
+
+  /* ── NEWSLETTER ── */
+  .newsletter-section {
+    padding: 5rem 4rem;
+    background: rgba(90,53,42,0.25);
+    border-top: 1px solid rgba(164,121,99,0.15);
+    border-bottom: 1px solid rgba(164,121,99,0.15);
+    display: flex; justify-content: space-between;
+    align-items: center; gap: 2rem; flex-wrap: wrap;
+  }
+  .newsletter-text h3 {
+    font-size: 1.1rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--off-white); margin-bottom: 0.5rem; font-weight: 400;
+  }
+  .newsletter-text p { font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; }
+  .newsletter-form { display: flex; gap: 0; flex-wrap: wrap; }
+  .newsletter-input {
+    padding: 0.85rem 1.5rem;
+    background: rgba(240,235,227,0.06);
+    border: 1px solid rgba(164,121,99,0.3); border-right: none;
+    color: var(--off-white); font-family: 'Didact Gothic', sans-serif;
+    font-size: 0.83rem; letter-spacing: 0.05em;
+    outline: none; min-width: 260px;
+    transition: border-color 0.3s;
+  }
+  .newsletter-input::placeholder { color: var(--text-muted); }
+  .newsletter-input:focus { border-color: var(--accent1); }
+  .newsletter-btn {
+    padding: 0.85rem 1.8rem;
+    background: var(--tertiary); color: var(--off-white); border: none;
+    font-family: 'Didact Gothic', sans-serif;
+    font-size: 0.76rem; letter-spacing: 0.16em; text-transform: uppercase;
+    transition: background 0.3s;
+  }
+  .newsletter-btn:hover { background: #8a3018; }
 
   /* ── CTA BANNER ── */
   .cta-banner {
@@ -388,17 +496,16 @@
     position: relative; overflow: hidden;
   }
   .cta-banner::after {
-    content: '';
-    position: absolute; right: -5%; top: -40%;
+    content: ''; position: absolute; right: -5%; top: -40%;
     width: 500px; height: 500px; border-radius: 50%;
     background: rgba(39,33,60,0.2);
   }
   .cta-banner h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem,3.5vw,3rem);
-    font-weight: 700; color: var(--off-white); position: relative; z-index: 1;
+    font-size: clamp(1.5rem, 3.2vw, 2.6rem); font-weight: 400;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--off-white); position: relative; z-index: 1; line-height: 1.3;
   }
-  .cta-banner h2 em { font-style: italic; color: var(--accent2); }
+  .cta-banner h2 em { font-style: normal; color: var(--accent2); }
   .cta-banner-btns { display: flex; gap: 1rem; flex-wrap: wrap; position: relative; z-index: 1; }
 
   /* ── FOOTER ── */
@@ -410,26 +517,17 @@
     border-top: 1px solid rgba(164,121,99,0.12);
   }
   .footer-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem; font-weight: 700;
-    color: var(--accent2); letter-spacing: 0.1em;
+    font-size: 0.9rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--accent2);
   }
-  footer p {
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 0.78rem; color: var(--text-muted);
-  }
+  footer p { font-size: 0.77rem; color: var(--text-muted); letter-spacing: 0.05em; }
   .footer-links { display: flex; gap: 2rem; list-style: none; }
   .footer-links a {
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 0.72rem; letter-spacing: 0.1em;
+    font-size: 0.71rem; letter-spacing: 0.12em;
     text-transform: uppercase; color: var(--text-muted);
     text-decoration: none; transition: color 0.3s;
   }
   .footer-links a:hover { color: var(--accent1); }
-
-  /* ── REVEAL ── */
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 960px) {
@@ -439,8 +537,12 @@
     .hero-image-side { height: 52vh; }
     .hero-content-side { padding: 3rem 2rem 4rem; }
     .hero-content-side::before { display: none; }
-    .threats, .species-section { padding: 5rem 1.5rem; }
+    .threats, .species-section, .action-section, .success-section,
+    .timeline-section { padding: 5rem 1.5rem; }
     .threat-grid { grid-template-columns: 1fr; gap: 1px; }
+    .action-grid { grid-template-columns: 1fr 1fr; }
+    .success-grid { grid-template-columns: 1fr; }
+    .success-card { height: 260px; }
     .species-grid {
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 260px 220px 220px;
@@ -456,8 +558,14 @@
     .impact-stat:nth-child(3) { border-top: 1px solid rgba(164,121,99,0.18); border-right: 1px solid rgba(164,121,99,0.18); }
     .impact-stat:nth-child(4) { border-top: 1px solid rgba(164,121,99,0.18); }
     .photo-strip { height: 140px; }
+    .timeline-item { grid-template-columns: 80px 1fr; }
+    .newsletter-section { flex-direction: column; padding: 4rem 2rem; }
+    .newsletter-input { min-width: 200px; }
     footer { flex-direction: column; text-align: center; }
     .cta-banner { padding: 4rem 2rem; }
+  }
+  @media (max-width: 600px) {
+    .action-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -467,31 +575,28 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">Wildlife</div>
+  <div class="nav-logo">S<span>O</span>WL</div>
   <ul class="nav-links">
     <li><a href="#threats">Threats</a></li>
     <li><a href="#species">Species</a></li>
     <li><a href="#impact">Impact</a></li>
-    <li><a href="#act">Act Now</a></li>
+    <li><a href="#act-section">Act Now</a></li>
   </ul>
 </nav>
 
 <!-- ═══ HERO ═══ -->
 <section class="hero">
-
   <div class="hero-image-side">
     <img src="https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=1400&q=85&fit=crop" alt="Leopard in wild" id="heroImg">
   </div>
-
   <div class="hero-content-side">
     <p class="hero-eyebrow">Global Conservation Crisis</p>
     <h1 class="hero-title">
       <span class="title-line">Before</span>
-      <em class="title-line">They're Gone</em>
+      <span class="title-line">They're</span>
+      <em class="title-line">Gone</em>
     </h1>
-    <p class="hero-subtitle">
-      Species vanish at 1,000× the natural rate. Pollution, deforestation, and illegal trade are pushing Earth's most magnificent creatures toward permanent silence.
-    </p>
+    <p class="hero-subtitle">Species vanish at 1,000× the natural rate. Pollution, deforestation, and illegal trade are pushing Earth's most magnificent creatures toward permanent silence.</p>
     <div class="hero-cta">
       <button class="btn-primary" onclick="document.getElementById('threats').scrollIntoView({behavior:'smooth'})">Discover the Crisis</button>
       <button class="btn-ghost" onclick="document.getElementById('species').scrollIntoView({behavior:'smooth'})">Meet the Species →</button>
@@ -502,7 +607,6 @@
       <div class="hero-stat"><strong>1 in 4</strong><small>Mammals at Risk</small></div>
     </div>
   </div>
-
 </section>
 
 <div class="divider"></div>
@@ -516,7 +620,6 @@
     </div>
     <p class="reveal">Human activity drives the sixth mass extinction. The causes are interconnected and accelerating — but largely reversible, if we act now.</p>
   </div>
-
   <div class="threat-grid">
     <div class="threat-card reveal">
       <div class="threat-number">01</div>
@@ -577,14 +680,6 @@
   </div>
 </div>
 
-<!-- ═══ QUOTE ═══ -->
-<section class="quote-section">
-  <blockquote class="reveal">
-    "The question is whether any civilization can wage relentless war on life without destroying itself, and without losing the right to be called civilized."
-  </blockquote>
-  <cite class="reveal">— Rachel Carson, Silent Spring</cite>
-</section>
-
 <div class="divider"></div>
 
 <!-- ═══ SPECIES ═══ -->
@@ -593,7 +688,6 @@
     <p class="section-label reveal">— Critically Endangered</p>
     <h2 class="section-title reveal">Names We May <em>Forget</em></h2>
   </div>
-
   <div class="species-grid">
     <div class="species-card sp1 reveal">
       <img src="images/Amur leopard.jpg" alt="Amur Leopard">
@@ -604,7 +698,6 @@
         <div class="species-remaining">~100 individuals remaining</div>
       </div>
     </div>
-
     <div class="species-card sp2 reveal">
       <img src="images/Javan Rhino.jpg" alt="Javan Rhino">
       <div class="species-card-content">
@@ -614,7 +707,6 @@
         <div class="species-remaining">~60 individuals</div>
       </div>
     </div>
-
     <div class="species-card sp3 reveal">
       <img src="images/Sumatran Orangeman.jpg" alt="Sumatran Orangutan">
       <div class="species-card-content">
@@ -624,7 +716,6 @@
         <div class="species-remaining">~13,000 individuals</div>
       </div>
     </div>
-
     <div class="species-card sp4 reveal">
       <img src="images/Black rhino.jpg" alt="Black Rhinoceros">
       <div class="species-card-content">
@@ -634,7 +725,6 @@
         <div class="species-remaining">~5,500 individuals</div>
       </div>
     </div>
-
     <div class="species-card sp5 reveal">
       <img src="images/Forest elephant.jpg" alt="African Forest Elephant">
       <div class="species-card-content">
@@ -644,7 +734,6 @@
         <div class="species-remaining">~100,000 individuals</div>
       </div>
     </div>
-
     <div class="species-card sp6 reveal">
       <img src="images/Franklins_Bumblebee.jpg" alt="Franklin's Bumble Bee">
       <div class="species-card-content">
@@ -664,24 +753,166 @@
     <div class="photo-strip-label">Red Fox</div>
   </div>
   <div class="photo-strip-item">
-    <img src="" alt="Polar Bear">
+    <img src="images/Polar_Bear.jpg" alt="Polar Bear">
     <div class="photo-strip-label">Polar Bear</div>
   </div>
   <div class="photo-strip-item">
-    <img src="" alt="Tiger">
+    <img src="images/Bengal tiger.jpg" alt="Tiger">
     <div class="photo-strip-label">Bengal Tiger</div>
   </div>
   <div class="photo-strip-item">
-    <img src="" alt="Gorilla">
+    <img src="images/Gorrila.webp" alt="Gorilla">
     <div class="photo-strip-label">Mountain Gorilla</div>
   </div>
   <div class="photo-strip-item">
-    <img src="" alt="Sea Turtle">
+    <img src="images/Sea turtle.webp" alt="Sea Turtle">
     <div class="photo-strip-label">Sea Turtle</div>
   </div>
   <div class="photo-strip-item">
-    <img src="" alt="Snow Leopard">
+    <img src="images/Snow leopard.webp" alt="Snow Leopard">
     <div class="photo-strip-label">Snow Leopard</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ QUOTE ═══ -->
+<section class="quote-section">
+  <blockquote class="reveal">"The question is whether any civilization can wage relentless war on life without destroying itself, and without losing the right to be called civilized."</blockquote>
+  <cite class="reveal">— Rachel Carson, Silent Spring</cite>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ SUCCESS STORIES ═══ -->
+<section class="success-section">
+  <div class="success-header">
+    <p class="section-label reveal">— Conservation Wins</p>
+    <h2 class="section-title reveal">When We Fight Back, <em>They Survive</em></h2>
+  </div>
+  <div class="success-grid">
+    <div class="success-card reveal">
+      <img src="images/Gorrila.webp" alt="Mountain Gorilla">
+      <div class="success-card-content">
+        <div class="success-badge">Recovery Success</div>
+        <h3>Mountain Gorilla</h3>
+        <p>Once critically endangered with fewer than 300 individuals, sustained protection has pushed their numbers above 1,000 for the first time in decades.</p>
+        <div class="success-stat">+240% population growth</div>
+      </div>
+    </div>
+    <div class="success-card reveal">
+      <img src="images/baldeagle.jpg" alt="Bald Eagle">
+      <div class="success-card-content">
+        <div class="success-badge">Delisted 2007</div>
+        <h3>Bald Eagle</h3>
+        <p>Once nearly wiped out by pesticide use, the bald eagle now numbers over 300,000 — a landmark success for the Endangered Species Act.</p>
+        <div class="success-stat">300,000+ today</div>
+      </div>
+    </div>
+    <div class="success-card reveal">
+      <img src="images/Sea turtle.webp" alt="Sea Turtle">
+      <div class="success-card-content">
+        <div class="success-badge">Ongoing Recovery</div>
+        <h3>Loggerhead Sea Turtle</h3>
+        <p>Beach protection programs and fishing gear reforms have led to steady population increases, a rare bright spot in marine conservation.</p>
+        <div class="success-stat">+73% nesting sites</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TIMELINE ═══ -->
+<section class="timeline-section">
+  <div class="timeline-header">
+    <p class="section-label reveal">— The Crisis in Time</p>
+    <h2 class="section-title reveal">A History of <em>Loss</em></h2>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-year">1900</div>
+      <div class="timeline-content">
+        <h4>The Last Passenger Pigeon</h4>
+        <p>Martha, the last known passenger pigeon, died in captivity at Cincinnati Zoo. Once numbering in the billions, her species was driven to extinction in decades by overhunting and habitat loss.</p>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-year">1973</div>
+      <div class="timeline-content">
+        <h4>Endangered Species Act Signed</h4>
+        <p>The United States passes landmark legislation offering legal protection to threatened and endangered species — a model that inspired conservation law worldwide.</p>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-year">1992</div>
+      <div class="timeline-content">
+        <h4>Convention on Biological Diversity</h4>
+        <p>196 nations sign the CBD at the Rio Earth Summit, pledging to protect biodiversity, use biological resources sustainably, and share benefits equitably.</p>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-year">2020</div>
+      <div class="timeline-content">
+        <h4>WWF Living Planet Report</h4>
+        <p>A devastating report reveals a 68% average decline in monitored wildlife populations between 1970 and 2016 — the most comprehensive record of Earth's accelerating biodiversity crisis.</p>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-year">2022</div>
+      <div class="timeline-content">
+        <h4>Kunming-Montreal Global Biodiversity Framework</h4>
+        <p>Nations commit to protecting 30% of Earth's land and oceans by 2030 — an ambitious but essential pledge to halt and reverse nature loss.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHAT YOU CAN DO ═══ -->
+<section class="action-section" id="act-section">
+  <div class="action-header">
+    <p class="section-label reveal">— Take Action</p>
+    <h2 class="section-title reveal">How You Can <em>Help</em></h2>
+  </div>
+  <div class="action-grid">
+    <div class="action-card reveal">
+      <div class="action-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <h3>Donate to Conservation</h3>
+      <p>Support organisations like WWF, Wildlife Conservation Society, and African Wildlife Foundation. Even small monthly contributions fund rangers, research, and habitat restoration.</p>
+    </div>
+    <div class="action-card reveal">
+      <div class="action-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+      </div>
+      <h3>Choose Responsibly</h3>
+      <p>Avoid products that drive deforestation — check for sustainable palm oil, FSC-certified wood, and ethical seafood certifications when you shop.</p>
+    </div>
+    <div class="action-card reveal">
+      <div class="action-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      </div>
+      <h3>Spread Awareness</h3>
+      <p>Share information, engage with conservation campaigns, and encourage friends and family to care about the biodiversity crisis. Public pressure moves policy.</p>
+    </div>
+    <div class="action-card reveal">
+      <div class="action-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 9m0 8V9m0 0L9 7"/></svg>
+      </div>
+      <h3>Support Wildlife Corridors</h3>
+      <p>Advocate for the protection and restoration of land corridors connecting fragmented habitats — allowing animal populations to migrate, breed, and recover.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NEWSLETTER ═══ -->
+<div class="newsletter-section">
+  <div class="newsletter-text">
+    <h3>Stay Informed</h3>
+    <p>Monthly updates on conservation news, success stories, and ways to help.</p>
+  </div>
+  <div class="newsletter-form">
+    <input class="newsletter-input" type="email" placeholder="Your email address">
+    <button class="newsletter-btn">Subscribe</button>
   </div>
 </div>
 
@@ -698,7 +929,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Wildlife Awareness Project</div>
+  <div class="footer-logo">Save Our Wildlife</div>
   <p>© 2025 — All species deserve a future.</p>
   <ul class="footer-links">
     <li><a href="#">About</a></li>
@@ -717,32 +948,11 @@ window.addEventListener('scroll', () => {
 });
 
 /* ── HERO ANIMATIONS ── */
-anime({
-  targets: '.hero-eyebrow',
-  translateY: [16, 0], opacity: [0, 1],
-  duration: 900, easing: 'easeOutExpo', delay: 350
-});
-anime({
-  targets: '.title-line',
-  translateY: [60, 0], opacity: [0, 1],
-  duration: 1100, easing: 'easeOutExpo',
-  delay: anime.stagger(170, { start: 520 })
-});
-anime({
-  targets: '.hero-subtitle',
-  translateY: [18, 0], opacity: [0, 1],
-  duration: 1000, easing: 'easeOutExpo', delay: 900
-});
-anime({
-  targets: '.hero-cta',
-  translateY: [15, 0], opacity: [0, 1],
-  duration: 900, easing: 'easeOutExpo', delay: 1100
-});
-anime({
-  targets: '.hero-stats',
-  translateY: [15, 0], opacity: [0, 1],
-  duration: 900, easing: 'easeOutExpo', delay: 1300
-});
+anime({ targets: '.hero-eyebrow',  translateY:[16,0], opacity:[0,1], duration:900,  easing:'easeOutExpo', delay:350 });
+anime({ targets: '.title-line',    translateY:[55,0], opacity:[0,1], duration:1100, easing:'easeOutExpo', delay:anime.stagger(160,{start:520}) });
+anime({ targets: '.hero-subtitle', translateY:[18,0], opacity:[0,1], duration:1000, easing:'easeOutExpo', delay:900 });
+anime({ targets: '.hero-cta',      translateY:[15,0], opacity:[0,1], duration:900,  easing:'easeOutExpo', delay:1100 });
+anime({ targets: '.hero-stats',    translateY:[15,0], opacity:[0,1], duration:900,  easing:'easeOutExpo', delay:1300 });
 
 /* Hero image slow zoom */
 setTimeout(() => {
@@ -758,7 +968,7 @@ const revealObs = new IntersectionObserver((entries) => {
       revealObs.unobserve(entry.target);
     }
   });
-}, { threshold: 0.1 });
+}, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
 /* ── COUNTERS ── */
@@ -781,9 +991,8 @@ document.querySelectorAll('.counter').forEach(el => cObs.observe(el));
 /* ── HERO PARALLAX ── */
 window.addEventListener('scroll', () => {
   const img = document.getElementById('heroImg');
-  if (img && window.scrollY < window.innerHeight) {
+  if (img && window.scrollY < window.innerHeight)
     img.style.transform = `scale(1.06) translateY(${window.scrollY * 0.15}px)`;
-  }
 });
 
 </script>
